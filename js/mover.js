@@ -3,15 +3,15 @@ class Mover {
 		this.x = x;
 		this.y = y;
 		this.initHue = hue;
-		this.initSat = random([40, 60, 80, 90, 100]);
-		this.initBri = random([40, 60, 70, 90]);
+		this.initSat = random([0, 10, 30, 40, 40, 60, 80, 80, 90, 100]);
+		this.initBri = random([0, 10, 20, 20, 40, 40, 60, 70, 80, 90, 100]);
 		this.initAlpha = 100;
-		this.initS = 0.3 * MULTIPLIER;
+		this.initS = 0.35 * MULTIPLIER;
 		this.hue = this.initHue;
 		this.sat = this.initSat;
 		this.bri = this.initBri;
 		this.a = this.initAlpha;
-		this.hueStep = 30;
+		this.hueStep = 10;
 		this.s = this.initS;
 		this.scl1 = scl1;
 		this.scl2 = scl2;
@@ -40,12 +40,6 @@ class Mover {
 		fill(this.hue, this.sat, this.bri, this.a);
 		noStroke();
 		rect(this.x, this.y, this.s, this.s);
-		rect(this.x + random(-1, 1), this.y + random(-1, 1), this.s, this.s);
-		rect(this.x + random(-1, 1), this.y + random(-1, 1), this.s, this.s);
-		rect(this.x + random(-1, 1), this.y + random(-1, 1), this.s, this.s);
-		rect(this.x + random(-1, 1), this.y + random(-1, 1), this.s, this.s);
-		rect(this.x + random(-1, 1), this.y + random(-1, 1), this.s, this.s);
-		rect(this.x + random(-1, 1), this.y + random(-1, 1), this.s, this.s);
 	}
 
 	move() {

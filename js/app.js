@@ -33,7 +33,7 @@ function setup() {
 	if (iOSSafari) {
 		pixelDensity(1.0);
 	} else {
-		pixelDensity(3.0);
+		pixelDensity(1.0);
 	}
 	C_WIDTH = min(windowWidth, windowHeight);
 	MULTIPLIER = C_WIDTH / 1600;
@@ -72,15 +72,16 @@ function draw() {
 function INIT() {
 	console.log('INIT');
 	let hue = random(360);
-	bgCol = color(random(0, 360), random([0, 2, 5]), 93, 100);
+	bgCol = color(random(0, 360), random([0, 2, 5]), 95, 100);
 	background(bgCol);
 
 	drawTexture(hue);
 	movers = [];
-	scl1 = 0.001;
-	scl2 = 0.001;
-	ang1 = 1090;
-	ang2 = 1000;
+	scl1 = random([0.00095, 0.001, 0.0011, 0.0012]);
+	scl2 = scl1;
+
+	ang1 = int(random([1, 5, 10, 20, 40, 80, 160, 320, 640, 1280]));
+	ang2 = int(random([1, 5, 10, 20, 40, 80, 160, 320, 640, 1280]));
 
 	let xRandDivider = random([0.1]);
 	let yRandDivider = xRandDivider;
@@ -94,7 +95,7 @@ function INIT() {
 	yMin = -0.05;
 	yMax = 1.05; */
 
-	for (let i = 0; i < 200000; i++) {
+	for (let i = 0; i < 600000; i++) {
 		let x = random(xMin, xMax) * width;
 		let y = random(yMin, yMax) * height;
 
@@ -129,7 +130,7 @@ function drawTexture(hue) {
 		let sw = 0.45;
 		let h = hue + random(-1, 1);
 		let s = random([0, 20, 40, 60, 80, 100]);
-		let b = random([0, 10, 10, 20, 20, 40, 60, 70, 90]);
+		let b = random([0, 10, 10, 20, 20, 40, 60, 70, 90, 90, 100]);
 		fill(h, s, b, 100);
 		noStroke();
 		rect(x, y, sw);
