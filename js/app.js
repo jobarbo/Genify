@@ -2,15 +2,16 @@ let composition_params;
 
 composition_params = generate_composition_params();
 
-var {complexity, theme, composition, colorMode, strokestyle, clampvalue} = composition_params;
+var {complexity, theme, composition, colormode, strokestyle, clampvalue, bordertype} = composition_params;
 console.log(composition);
 var Features = {
 	complexity: complexity,
 	theme: theme,
 	composition: composition,
-	colorMode: colorMode,
+	colormode: colormode,
 	strokestyle: strokestyle,
 	clampvalue: clampvalue,
+	bordertype: bordertype,
 };
 
 Genify.setGenFeatures(Features);
@@ -95,14 +96,38 @@ function INIT() {
 	let xRandDivider = 0.1;
 	let yRandDivider = xRandDivider;
 
-	xMin = 0.15;
-	xMax = 0.85;
-	yMin = 0.1;
-	yMax = 0.9;
-	/* 	xMin = -0.05;
-	xMax = 1.05;
-	yMin = -0.05;
-	yMax = 1.05; */
+	xMin =
+		features.composition === 'semiconstrained'
+			? 0.1
+			: features.composition === 'constrained'
+			? 0.15
+			: features.composition === 'compressed'
+			? 0.2
+			: -0.05;
+	xMax =
+		features.composition === 'semiconstrained'
+			? 0.9
+			: features.composition === 'constrained'
+			? 0.85
+			: features.composition === 'compressed'
+			? 0.8
+			: 1.05;
+	yMin =
+		features.composition === 'semiconstrained'
+			? 0.05
+			: features.composition === 'constrained'
+			? 0.1
+			: features.composition === 'compressed'
+			? 0.15
+			: -0.05;
+	yMax =
+		features.composition === 'semiconstrained'
+			? 0.95
+			: features.composition === 'constrained'
+			? 0.9
+			: features.composition === 'compressed'
+			? 0.85
+			: 1.05;
 
 	for (let i = 0; i < 200000; i++) {
 		let x = random(xMin, xMax) * width;
@@ -132,7 +157,7 @@ function INIT() {
 
 function drawTexture(hue) {
 	// draw 200000 small rects to create a texture
-	for (let i = 0; i < 300000; i++) {
+	for (let i = 0; i < 200000; i++) {
 		let x = random(width);
 		let y = random(height);
 		let sw = 0.45;

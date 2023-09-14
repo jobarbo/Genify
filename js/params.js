@@ -21,7 +21,7 @@ const themeArr = [
 const compositionArr = [
 	['semiconstrained', 33],
 	['constrained', 33],
-	['compresed', 33],
+	['compressed', 33],
 ];
 
 const colorModeArr = [
@@ -50,8 +50,14 @@ const clampvalueArr = [
 	['0.0000015,0.0000015,0.0000015,0.0000015', 50],
 ];
 
+const borderTypeArr = [
+	['none', 33],
+	['limited', 33],
+	['JDL mode', 33],
+];
+
 // all input parameters are optional, they will be chosen at random if not passed into the function
-function generate_composition_params(complexity, theme, composition, colormode, strokestyle, clampvalue) {
+function generate_composition_params(complexity, theme, composition, colormode, strokestyle, clampvalue, bordertype) {
 	// SET DEFAULTS IF NOT PASSED IN
 	if (complexity === undefined) {
 		complexity = weighted_choice(complexityArr);
@@ -77,6 +83,10 @@ function generate_composition_params(complexity, theme, composition, colormode, 
 		clampvalue = weighted_choice(clampvalueArr);
 	}
 
+	if (bordertype === undefined) {
+		bordertype = weighted_choice(borderTypeArr);
+	}
+
 	//* EXCEPTIONS AND OVER-RIDES *//
 	// if necessary, add exceptions and over-rides here
 
@@ -88,6 +98,7 @@ function generate_composition_params(complexity, theme, composition, colormode, 
 		colormode: colormode,
 		strokestyle: strokestyle,
 		clampvalue: clampvalue,
+		bordertype: bordertype,
 	};
 
 	//* RETURN PARAMETERS *//

@@ -4,16 +4,26 @@ class Mover {
 		this.y = y;
 		this.initHue = hue;
 		this.initSat = random([0, 10, 40, 40, 50, 50, 60, 80, 80, 90, 100]);
-		this.initBri = random([0, 10, 40, 40, 50, 50, 60, 70, 80, 90, 100]);
-		this.initAlpha = 70;
+		this.initBri =
+			features.theme === 'bright' && features.colormode !== 'monochrome'
+				? random([0, 10, 20, 20, 40, 40, 60, 70, 80, 90, 100])
+				: features.theme === 'bright' && features.colormode === 'monochrome'
+				? random([0, 0, 10, 20, 20, 30, 40])
+				: random([40, 60, 70, 70, 80, 80, 80, 90, 100]);
+		this.initAlpha = 100;
 		this.initS = 0.7 * MULTIPLIER;
 		this.hue = this.initHue;
-		this.sat = this.initSat;
+		this.sat = features.colormode === 'monochrome' ? 0 : this.initSat;
 		this.bri = this.initBri;
 		this.a = this.initAlpha;
-		this.hueStep = 6;
-		this.satStep = 4;
-		this.briStep = 4;
+		this.hueStep =
+			features.colormode === 'monochrome' || features.colormode === 'fixed'
+				? 1
+				: features.colormode === 'dynamic'
+				? 6
+				: 25;
+		this.satStep = features.colormode === 'monochrome' ? 0 : 4;
+		this.briStep = 1;
 		this.s = this.initS;
 		this.scl1 = scl1;
 		this.scl2 = scl2;
@@ -23,19 +33,16 @@ class Mover {
 		this.yRandDivider = 0.1;
 		this.xRandSkipper = 0;
 		this.yRandSkipper = 0;
-		this.xRandSkipperVal = 0.1;
-		this.yRandSkipperVal = 0.1;
+		this.xRandSkipperVal = features.strokestyle === 'thin' ? 0.1 : features.strokestyle === 'bold' ? 0.5 : 0.25;
+		this.yRandSkipperVal = features.strokestyle === 'thin' ? 0.1 : features.strokestyle === 'bold' ? 0.5 : 0.25;
 		this.xMin = xMin;
 		this.xMax = xMax;
 		this.yMin = yMin;
 		this.yMax = yMax;
-		this.oct = 2;
-		this.centerX = width / 2;
-		this.centerY = height / 2;
-		this.borderX = width / 2;
-		this.borderY = height / 2.75;
+		this.oct = Number(features.complexity);
+		this.clampvaluearray = features.clampvalue.split(',').map(Number);
 		this.uvalue = 4;
-		this.isBordered = true;
+		this.isBordered = features.bordertype === 'limited' || features.bordertype === 'JDL mode' ? true : false;
 	}
 
 	show() {
@@ -61,9 +68,7 @@ class Mover {
 		this.bri += mapValue(p.y, -this.uvalue * 2, this.uvalue * 2, -this.briStep, this.briStep, true);
 		this.bri = this.bri > 100 ? 0 : this.bri < 0 ? 100 : this.bri;
 
-		this.x = this.x <= 0 ? width - 2 : this.x >= width ? 0 : this.x;
-		this.y = this.y <= 0 ? height - 2 : this.y >= height ? 0 : this.y;
-		if (this.isBordered) {
+		/* 		if (this.isBordered) {
 			this.x =
 				this.x <= this.xMin * width
 					? this.xMax * width + random(0 * MULTIPLIER, 0)
@@ -76,25 +81,33 @@ class Mover {
 					: this.y > this.yMax * height
 					? this.yMin * height + random(0, 0 * MULTIPLIER)
 					: this.y;
-		}
-		/* if (this.isBordered) {
+		} */
+		if (this.isBordered) {
 			if (this.x < (this.xMin - 0.015) * width) {
 				this.x = (this.xMax + 0.015) * width;
-				this.a = 0;
+				if (features.bordertype != 'JDL mode') {
+					this.a = 0;
+				}
 			}
 			if (this.x > (this.xMax + 0.015) * width) {
 				this.x = (this.xMin - 0.015) * width;
-				this.a = 0;
+				if (features.bordertype != 'JDL mode') {
+					this.a = 0;
+				}
 			}
 			if (this.y < (this.yMin - 0.015) * height) {
 				this.y = (this.yMax + 0.015) * height;
-				this.a = 0;
+				if (features.bordertype != 'JDL mode') {
+					this.a = 0;
+				}
 			}
 			if (this.y > (this.yMax + 0.015) * height) {
 				this.y = (this.yMin - 0.015) * height;
-				this.a = 0;
+				if (features.bordertype != 'JDL mode') {
+					this.a = 0;
+				}
 			}
-		} */
+		}
 	}
 }
 function superCurve(x, y, scl1, scl2, ang1, ang2, octave) {
