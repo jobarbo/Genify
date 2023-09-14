@@ -3,10 +3,10 @@ class Mover {
 		this.x = x;
 		this.y = y;
 		this.initHue = hue;
-		this.initSat = random([0, 10, 30, 40, 40, 60, 80, 80, 90, 100]);
-		this.initBri = random([0, 10, 20, 20, 40, 40, 60, 70, 80, 90, 100]);
-		this.initAlpha = 30;
-		this.initS = 1 * MULTIPLIER;
+		this.initSat = random([0, 10, 40, 40, 50, 50, 60, 80, 80, 90, 100]);
+		this.initBri = random([0, 10, 40, 40, 50, 50, 60, 70, 80, 90, 100]);
+		this.initAlpha = 70;
+		this.initS = 0.7 * MULTIPLIER;
 		this.hue = this.initHue;
 		this.sat = this.initSat;
 		this.bri = this.initBri;
@@ -29,7 +29,7 @@ class Mover {
 		this.xMax = xMax;
 		this.yMin = yMin;
 		this.yMax = yMax;
-		this.oct = 1;
+		this.oct = 2;
 		this.centerX = width / 2;
 		this.centerY = height / 2;
 		this.borderX = width / 2;
@@ -63,25 +63,38 @@ class Mover {
 
 		this.x = this.x <= 0 ? width - 2 : this.x >= width ? 0 : this.x;
 		this.y = this.y <= 0 ? height - 2 : this.y >= height ? 0 : this.y;
-
 		if (this.isBordered) {
+			this.x =
+				this.x <= this.xMin * width
+					? this.xMax * width + random(0 * MULTIPLIER, 0)
+					: this.x > this.xMax * width
+					? this.xMin * width + random(0, 0 * MULTIPLIER)
+					: this.x;
+			this.y =
+				this.y < this.yMin * height
+					? this.yMax * height + random(0 * MULTIPLIER, 0)
+					: this.y > this.yMax * height
+					? this.yMin * height + random(0, 0 * MULTIPLIER)
+					: this.y;
+		}
+		/* if (this.isBordered) {
 			if (this.x < (this.xMin - 0.015) * width) {
 				this.x = (this.xMax + 0.015) * width;
-				//this.a = 0;
+				this.a = 0;
 			}
 			if (this.x > (this.xMax + 0.015) * width) {
 				this.x = (this.xMin - 0.015) * width;
-				//this.a = 0;
+				this.a = 0;
 			}
 			if (this.y < (this.yMin - 0.015) * height) {
 				this.y = (this.yMax + 0.015) * height;
-				//this.a = 0;
+				this.a = 0;
 			}
 			if (this.y > (this.yMax + 0.015) * height) {
 				this.y = (this.yMin - 0.015) * height;
-				//this.a = 0;
+				this.a = 0;
 			}
-		}
+		} */
 	}
 }
 function superCurve(x, y, scl1, scl2, ang1, ang2, octave) {
@@ -94,7 +107,7 @@ function superCurve(x, y, scl1, scl2, ang1, ang2, octave) {
 		dx,
 		dy;
 
-	/* 	dx = oct(nx, ny, scale1, 0, octave);
+	dx = oct(nx, ny, scale1, 0, octave);
 	dy = oct(nx, ny, scale2, 2, octave);
 	nx += dx * a1;
 	ny += dy * a2;
@@ -107,7 +120,7 @@ function superCurve(x, y, scl1, scl2, ang1, ang2, octave) {
 	dx = oct(nx, ny, scale1, 1, octave);
 	dy = oct(nx, ny, scale2, 2, octave);
 	nx += dx * a1;
-	ny += dy * a2; */
+	ny += dy * a2;
 
 	let un = oct(nx, ny, scale1, 3, octave);
 	let vn = oct(nx, ny, scale2, 2, octave);

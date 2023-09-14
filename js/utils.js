@@ -1,3 +1,5 @@
+let rand = Genify.random;
+
 const mapValue = (v, cl, cm, tl, th, c) =>
 	c ? Math.min(Math.max(((v - cl) / (cm - cl)) * (th - tl) + tl, tl), th) : ((v - cl) / (cm - cl)) * (th - tl) + tl;
 
@@ -88,4 +90,20 @@ function saveArtwork() {
 	var fileName = datestring + '.png';
 
 	saveCanvas(c, fileName);
+}
+
+function weighted_choice(data) {
+	let total = 0;
+	for (let i = 0; i < data.length; ++i) {
+		total += data[i][1];
+	}
+	const threshold = rand() * total;
+	total = 0;
+	for (let i = 0; i < data.length - 1; ++i) {
+		total += data[i][1];
+		if (total >= threshold) {
+			return data[i][0];
+		}
+	}
+	return data[data.length - 1][0];
 }

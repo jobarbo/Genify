@@ -1,9 +1,21 @@
+let composition_params;
+
+composition_params = generate_composition_params();
+
+var {complexity, theme, composition, colorMode, strokestyle, clampvalue} = composition_params;
+console.log(composition);
 var Features = {
-	shape: 'circle',
+	complexity: complexity,
+	theme: theme,
+	composition: composition,
+	colorMode: colorMode,
+	strokestyle: strokestyle,
+	clampvalue: clampvalue,
 };
 
-//Genify.setGenFeatures(Features);
-//features = window.$genFeatures;
+Genify.setGenFeatures(Features);
+features = window.$genFeatures;
+console.log(features);
 
 let movers = [];
 let scl1;
@@ -54,10 +66,8 @@ function setup() {
 function draw() {
 	// put drawing code here
 	for (let i = 0; i < movers.length; i++) {
-		for (let j = 0; j < 1; j++) {
-			movers[i].show();
-			movers[i].move();
-		}
+		movers[i].show();
+		movers[i].move();
 	}
 	let elapsedTime = frameCount - startTime;
 	if (elapsedTime > maxFrames) {
@@ -70,7 +80,6 @@ function draw() {
 //////////////////////////////////////////////////////
 
 function INIT() {
-	console.log('INIT');
 	let hue = random(360);
 	let bgCol = color(random(0, 360), random([0, 2, 5]), 95, 100);
 
@@ -95,7 +104,7 @@ function INIT() {
 	yMin = -0.05;
 	yMax = 1.05; */
 
-	for (let i = 0; i < 1000000; i++) {
+	for (let i = 0; i < 200000; i++) {
 		let x = random(xMin, xMax) * width;
 		let y = random(yMin, yMax) * height;
 
@@ -123,8 +132,7 @@ function INIT() {
 
 function drawTexture(hue) {
 	// draw 200000 small rects to create a texture
-	console.log('drawTexture');
-	for (let i = 0; i < 100000; i++) {
+	for (let i = 0; i < 300000; i++) {
 		let x = random(width);
 		let y = random(height);
 		let sw = 0.45;
