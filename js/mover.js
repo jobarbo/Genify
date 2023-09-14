@@ -6,23 +6,23 @@ class Mover {
 		this.initSat = random([0, 10, 30, 40, 40, 60, 80, 80, 90, 100]);
 		this.initBri = random([0, 10, 20, 20, 40, 40, 60, 70, 80, 90, 100]);
 		this.initAlpha = 100;
-		this.initS = 0.35 * MULTIPLIER;
+		this.initS = 1 * MULTIPLIER;
 		this.hue = this.initHue;
 		this.sat = this.initSat;
 		this.bri = this.initBri;
 		this.a = this.initAlpha;
-		this.hueStep = 2;
+		this.hueStep = 20;
 		this.s = this.initS;
 		this.scl1 = scl1;
 		this.scl2 = scl2;
 		this.ang1 = ang1;
 		this.ang2 = ang2;
-		this.xRandDivider = xRandDivider;
-		this.yRandDivider = yRandDivider;
+		this.xRandDivider = 1;
+		this.yRandDivider = 1;
 		this.xRandSkipper = 0;
 		this.yRandSkipper = 0;
-		this.xRandSkipperVal = 0.1;
-		this.yRandSkipperVal = 0.1;
+		this.xRandSkipperVal = 0;
+		this.yRandSkipperVal = 0;
 		this.xMin = xMin;
 		this.xMax = xMax;
 		this.yMin = yMin;
@@ -33,7 +33,7 @@ class Mover {
 		this.borderX = width / 2;
 		this.borderY = height / 2.75;
 		this.uvalue = 4;
-		this.isBordered = true;
+		this.isBordered = false;
 	}
 
 	show() {
@@ -44,9 +44,10 @@ class Mover {
 
 	move() {
 		let p = superCurve(this.x, this.y, this.scl1, this.scl2, this.ang1, this.ang2, this.oct);
-
-		this.xRandSkipper = random(-this.xRandSkipperVal * MULTIPLIER, this.xRandSkipperVal * MULTIPLIER);
-		this.yRandSkipper = random(-this.xRandSkipperVal * MULTIPLIER, this.xRandSkipperVal * MULTIPLIER);
+		this.xRandDivider = random([0.1, 30, 50, 100]);
+		this.yRandDivider = random([0.1, 30, 50, 100]);
+		/* 	this.xRandSkipper = random(-this.xRandSkipperVal * MULTIPLIER, this.xRandSkipperVal * MULTIPLIER);
+		this.yRandSkipper = random(-this.xRandSkipperVal * MULTIPLIER, this.xRandSkipperVal * MULTIPLIER); */
 
 		this.x += (p.x * MULTIPLIER) / this.xRandDivider + this.xRandSkipper;
 		this.y += (p.y * MULTIPLIER) / this.yRandDivider + this.yRandSkipper;
@@ -68,7 +69,11 @@ class Mover {
 				? this.centerY - this.borderY + random(0, 4 * MULTIPLIER)
 				: this.y; */
 
-		/* if (this.isBordered) {
+		//shortand for if this.x is less than 0, set this.x to width and vice versa
+		this.x = this.x <= 0 ? width - 2 : this.x >= width ? 0 : this.x;
+		this.y = this.y <= 0 ? height - 2 : this.y >= height ? 0 : this.y;
+
+		if (this.isBordered) {
 			if (this.x < (this.xMin - 0.015) * width) {
 				this.x = (this.xMax + 0.015) * width;
 				this.a = 0;
@@ -85,7 +90,7 @@ class Mover {
 				this.y = (this.yMin - 0.015) * height;
 				this.a = 0;
 			}
-		} */
+		}
 	}
 }
 function superCurve(x, y, scl1, scl2, ang1, ang2, octave) {
@@ -116,8 +121,8 @@ function superCurve(x, y, scl1, scl2, ang1, ang2, octave) {
 	let un = oct(nx, ny, scale1, 3, octave);
 	let vn = oct(nx, ny, scale2, 2, octave);
 
-	let u = mapValue(un, -0.015, 0.015, -25, 5, true);
-	let v = mapValue(vn, -0.0015, 0.0015, -5, 25, true);
+	let u = map(un, -0.00015, 0.00015, -0.5, 0.5, true);
+	let v = map(vn, -0.00015, 0.00015, -0.5, 0.5, true);
 
 	let p = createVector(u, v);
 	return p;

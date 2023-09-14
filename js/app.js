@@ -70,35 +70,36 @@ function draw() {
 //////////////////////////////////////////////////////
 
 function INIT() {
+	console.log('INIT');
+	let hue = random(360);
+	let bgCol = color(random(0, 360), random([0, 2, 5]), 95, 100);
+
+	background(bgCol);
+
+	drawTexture(hue);
 	movers = [];
 	scl1 = random(0.0001, 0.005);
 	scl2 = random(0.0001, 0.005);
 	ang1 = int(random(1000));
 	ang2 = int(random(1000));
 
-	let xRandDivider = random([0.08, 0.09, 0.1, 0.11, 0.12]);
+	let xRandDivider = 0.1;
 	let yRandDivider = xRandDivider;
 
 	xMin = 0.15;
 	xMax = 0.85;
-	yMin = 0.15;
-	yMax = 0.85;
-	xMin = -0.05;
+	yMin = 0.1;
+	yMax = 0.9;
+	/* 	xMin = -0.05;
 	xMax = 1.05;
 	yMin = -0.05;
-	yMax = 1.05;
-	let hue = random(360);
-	for (let i = 0; i < 200000; i++) {
-		/* 		// distribue the movers within a circle using polar coordinates
-		let r = randomGaussian(4, 2);
-		let theta = random(0, TWO_PI);
-		let x = width / 2 + r * cos(theta) * 100;
-		let y = height / 2 + r * sin(theta) * 100; */
+	yMax = 1.05; */
 
+	for (let i = 0; i < 50000; i++) {
 		let x = random(xMin, xMax) * width;
 		let y = random(yMin, yMax) * height;
 
-		let initHue = hue + random(-10, 10);
+		let initHue = hue + random(-1, 1);
 		initHue = initHue > 360 ? initHue - 360 : initHue < 0 ? initHue + 360 : initHue;
 		movers.push(
 			new Mover(
@@ -118,7 +119,20 @@ function INIT() {
 			)
 		);
 	}
-	bgCol = color(random(0, 360), random([0, 2, 5]), 93, 100);
+}
 
-	background(bgCol);
+function drawTexture(hue) {
+	// draw 200000 small rects to create a texture
+	console.log('drawTexture');
+	for (let i = 0; i < 100000; i++) {
+		let x = random(width);
+		let y = random(height);
+		let sw = 0.45;
+		let h = hue + random(-1, 1);
+		let s = random([0, 20, 40, 60, 80, 100]);
+		let b = random([0, 10, 10, 20, 20, 40, 60, 70, 90, 90, 100]);
+		fill(h, s, b, 100);
+		noStroke();
+		rect(x, y, sw);
+	}
 }
