@@ -44,8 +44,8 @@ class Mover {
 		this.oct = Number(features.complexity);
 		this.centerX = width / 2;
 		this.centerY = height / 2;
-		this.borderX = features.composition === 'micro' ? width / 2.35 : width / 2;
-		this.borderY = features.composition === 'micro' ? height / 2.25 : height / 2;
+		this.borderX = features.composition === 'micro' ? width / 2.35 : width / 2.15;
+		this.borderY = features.composition === 'micro' ? height / 2.25 : height / 2.1;
 		this.clampvaluearray = features.clampvalue.split(',').map(Number);
 		this.uvalue = features.speedvalue.split(',').map(Number);
 		this.isRestrained = features.rangetype === 'limited' ? true : false;
