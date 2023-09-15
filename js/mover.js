@@ -47,7 +47,7 @@ class Mover {
 		this.borderX = features.composition === 'micro' ? width / 2.35 : width / 2;
 		this.borderY = features.composition === 'micro' ? height / 2.25 : height / 2;
 		this.clampvaluearray = features.clampvalue.split(',').map(Number);
-		this.uvalue = 10;
+		this.uvalue = features.speedvalue.split(',').map(Number);
 		this.isRestrained = features.rangetype === 'limited' ? true : false;
 	}
 
@@ -77,7 +77,7 @@ class Mover {
 		this.y += (p.y * MULTIPLIER) / this.yRandDivider + this.yRandSkipper;
 
 		let pxy = p.x - p.y;
-		this.hue += mapValue(pxy, -this.uvalue * 2, this.uvalue * 2, -this.hueStep, this.hueStep, true);
+		this.hue += mapValue(pxy, -this.uvalue[0] * 2, this.uvalue[0] * 2, -this.hueStep, this.hueStep, true);
 		this.hue = this.hue > 360 ? 0 : this.hue < 0 ? 360 : this.hue;
 		this.sat += random(-this.satStep, this.satStep);
 		this.sat = this.sat > 100 ? 100 : this.sat < 0 ? 0 : this.sat;
@@ -155,12 +155,12 @@ function superCurve(x, y, scl1, scl2, ang1, ang2, octave, clampvalueArr, uvalue)
 	let un = oct(nx, ny, scale1, 3, octave);
 	let vn = oct(nx, ny, scale2, 2, octave);
 
-	let u = map(un, -0.0015, 0.0015, -5, 5, true);
-	let v = map(vn, -0.0015, 0.0015, -5, 5, true);
+	/* 	let u = map(un, -0.0015, 0.0015, -5, 5, true);
+	let v = map(vn, -0.0015, 0.0015, -5, 5, true); */
 
-	/* 	let u = mapValue(un, -clampvalueArr[0], clampvalueArr[1], -uvalue, uvalue, true);
-	let v = mapValue(vn, -clampvalueArr[2], clampvalueArr[3], -uvalue, uvalue, true);
- */
+	let u = mapValue(un, -clampvalueArr[0], clampvalueArr[1], -uvalue[0], uvalue[1], true);
+	let v = mapValue(vn, -clampvalueArr[1], clampvalueArr[0], -uvalue[1], uvalue[0], true);
+
 	let p = createVector(u, v);
 	return p;
 }

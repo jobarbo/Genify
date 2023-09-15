@@ -5,12 +5,12 @@
 // CATEGORISE VARIABILITY INSIDE ARRAYS //
 
 const complexityArr = [
-	['1', 16],
-	['2', 16],
-	['3', 16],
-	['4', 16],
-	['5', 16],
-	['6', 16],
+	['1', 40],
+	['2', 25],
+	['3', 15],
+	['4', 10],
+	['5', 5],
+	['6', 5],
 ];
 
 const themeArr = [
@@ -21,8 +21,8 @@ const themeArr = [
 const compositionArr = [
 	['semiconstrained', 35],
 	['constrained', 35],
-	['compressed', 10],
-	['micro', 20],
+	['compressed', 15],
+	['micro', 15],
 ];
 
 const colorModeArr = [
@@ -39,16 +39,29 @@ const strokestyleArr = [
 ];
 
 const clampvalueArr = [
-	['0.0000015,0.25,0.25,0.0000015', 50],
-	['0.0000015,0.025,0.025,0.0000015', 50],
-	['0.00015,0.015,0.015,0.00015', 50],
-	['0.15,0.00000015,0.15,0.0000015', 50],
-	['0.0015,0.000015,0.0015,0.000015', 50],
-	['0.05,0.05,0.05,0.05', 50],
-	['0.15,0.15,0.15,0.15', 50],
-	['0.015,0.015,0.015,0.015', 50],
-	['0.0015,0.0015,0.0015,0.0015', 50],
-	['0.0000015,0.0000015,0.0000015,0.0000015', 50],
+	['0.0000015,0.0000015', 20],
+	['0.15,0.0000015', 15],
+	['0.15,0.15', 5],
+	['0.015,0.015', 10],
+	['0.0015,0.0015', 10],
+	['0.015,0.0015', 10],
+	['0.015,0.0000015', 20],
+	['0.05,0.05', 5],
+	['0.005,0.005', 5],
+];
+
+const speedvalueArr = [
+	['5,15', 15],
+	['5,5', 15],
+	['15,5', 15],
+	['5,10', 10],
+	['10,5', 10],
+	['10,10', 10],
+	['10,15', 5],
+	['15,10', 5],
+	['15,15', 5],
+	['5,20', 5],
+	['20,5', 5],
 ];
 
 const rangeTypeArr = [
@@ -70,7 +83,8 @@ function generate_composition_params(
 	strokestyle,
 	clampvalue,
 	rangetype,
-	jdlmode
+	jdlmode,
+	speedvalue
 ) {
 	// SET DEFAULTS IF NOT PASSED IN
 	if (complexity === undefined) {
@@ -101,9 +115,13 @@ function generate_composition_params(
 		jdlmode = weighted_choice(jdlModeArr);
 	}
 
+	if (speedvalue === undefined) {
+		speedvalue = weighted_choice(speedvalueArr);
+	}
+
 	if (rangetype === undefined) {
 		rangetype = weighted_choice(rangeTypeArr);
-		if (composition === 'micro' && rangetype === 'limited') {
+		if (composition === 'micro') {
 			rangetype = 'free';
 			jdlmode = 'yes';
 		}
@@ -125,6 +143,7 @@ function generate_composition_params(
 		clampvalue: clampvalue,
 		rangetype: rangetype,
 		jdlmode: jdlmode,
+		speedvalue: speedvalue,
 	};
 
 	//* RETURN PARAMETERS *//

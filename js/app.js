@@ -2,7 +2,8 @@ let composition_params;
 
 composition_params = generate_composition_params();
 
-var {complexity, theme, composition, colormode, strokestyle, clampvalue, rangetype, jdlmode} = composition_params;
+var {complexity, theme, composition, colormode, strokestyle, clampvalue, rangetype, jdlmode, speedvalue} =
+	composition_params;
 console.log(composition);
 var Features = {
 	complexity: complexity,
@@ -13,11 +14,12 @@ var Features = {
 	clampvalue: clampvalue,
 	rangetype: rangetype,
 	jdlmode: jdlmode,
+	speedvalue: speedvalue,
 };
 
 Genify.setGenFeatures(Features);
 features = window.$genFeatures;
-console.log(features);
+console.table(features);
 
 let movers = [];
 let scl1;
@@ -73,6 +75,8 @@ function draw() {
 	}
 	let elapsedTime = frameCount - startTime;
 	if (elapsedTime > maxFrames) {
+		window.rendered = c.canvas;
+		document.complete = true;
 		noLoop();
 	}
 }
@@ -89,13 +93,14 @@ function INIT() {
 
 	drawTexture(hue);
 	movers = [];
-	scl1 = random(0.0001, 0.005);
-	scl2 = random(0.0001, 0.005);
-	ang1 = int(random(5));
-	ang2 = int(random(5));
+	scl1 = random([0.00095, 0.001, 0.0011, 0.0012, 0.0015, 0.002]);
+	scl2 = random([0.00095, 0.001, 0.0011, 0.0012, 0.0015, 0.002]);
 
-	let xRandDivider = 0.1;
-	let yRandDivider = xRandDivider;
+	ang1 = int(random([1, 5, 10, 20, 40, 80, 160, 320, 640, 1280]));
+	ang2 = int(random([1, 5, 10, 20, 40, 80, 160, 320, 640, 1280]));
+
+	let xRandDivider = random([0.05, 0.08, 0.09, 0.1, 0.11, 0.12, 0.15]);
+	let yRandDivider = random([0.05, 0.08, 0.09, 0.1, 0.11, 0.12, 0.15]);
 
 	xMin =
 		features.composition === 'micro'
