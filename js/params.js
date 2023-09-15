@@ -19,14 +19,15 @@ const themeArr = [
 ];
 
 const compositionArr = [
-	['semiconstrained', 33],
-	['constrained', 33],
-	['compressed', 33],
+	['semiconstrained', 35],
+	['constrained', 35],
+	['compressed', 10],
+	['micro', 20],
 ];
 
 const colorModeArr = [
 	['monochrome', 25],
-	['fixed', 0],
+	['fixed', 25],
 	['dynamic', 25],
 	['iridescent', 25],
 ];
@@ -56,8 +57,8 @@ const rangeTypeArr = [
 ];
 
 const jdlModeArr = [
-	['yes', 5],
-	['no', 95],
+	['yes', 10],
+	['no', 90],
 ];
 
 // all input parameters are optional, they will be chosen at random if not passed into the function
@@ -92,18 +93,22 @@ function generate_composition_params(
 		clampvalue = weighted_choice(clampvalueArr);
 	}
 
-	if (rangetype === undefined) {
-		rangetype = weighted_choice(rangeTypeArr);
+	if (composition === undefined) {
+		composition = weighted_choice(compositionArr);
 	}
 
 	if (jdlmode === undefined) {
 		jdlmode = weighted_choice(jdlModeArr);
 	}
 
-	if (composition === undefined) {
-		composition = weighted_choice(compositionArr);
+	if (rangetype === undefined) {
+		rangetype = weighted_choice(rangeTypeArr);
+		if (composition === 'micro' && rangetype === 'limited') {
+			rangetype = 'free';
+			jdlmode = 'yes';
+		}
 		if (rangetype === 'free') {
-			composition = 'micro';
+			jdlmode = 'yes';
 		}
 	}
 

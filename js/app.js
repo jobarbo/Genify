@@ -91,15 +91,15 @@ function INIT() {
 	movers = [];
 	scl1 = random(0.0001, 0.005);
 	scl2 = random(0.0001, 0.005);
-	ang1 = int(random(1000));
-	ang2 = int(random(1000));
+	ang1 = int(random(5));
+	ang2 = int(random(5));
 
 	let xRandDivider = 0.1;
 	let yRandDivider = xRandDivider;
 
 	xMin =
 		features.composition === 'micro'
-			? random(0.35, 0.49)
+			? 0.35
 			: features.composition === 'semiconstrained'
 			? 0.15
 			: features.composition === 'constrained'
@@ -109,7 +109,7 @@ function INIT() {
 			: -0.05;
 	xMax =
 		features.composition === 'micro'
-			? random(0.51, 0.75)
+			? 0.65
 			: features.composition === 'semiconstrained'
 			? 0.85
 			: features.composition === 'constrained'
@@ -119,7 +119,7 @@ function INIT() {
 			: 1.05;
 	yMin =
 		features.composition === 'micro'
-			? random(0.1, 0.49)
+			? 0.35
 			: features.composition === 'semiconstrained'
 			? 0.1
 			: features.composition === 'constrained'
@@ -129,7 +129,7 @@ function INIT() {
 			: -0.05;
 	yMax =
 		features.composition === 'micro'
-			? random(0.51, 0.9)
+			? 0.65
 			: features.composition === 'semiconstrained'
 			? 0.9
 			: features.composition === 'constrained'
@@ -166,10 +166,10 @@ function INIT() {
 
 function drawTexture(hue) {
 	// draw 200000 small rects to create a texture
-	for (let i = 0; i < 100000; i++) {
+	for (let i = 0; i < 200000; i++) {
 		let x = random(width);
 		let y = random(height);
-		let sw = 0.6 * MULTIPLIER;
+		let sw = 0.65 * MULTIPLIER;
 		let h = hue + random(-10, 10);
 		let s = features.colormode === 'monochrome' ? 0 : random([0, 10, 40, 40, 50, 50, 60, 80, 80, 90, 100]);
 		let b =

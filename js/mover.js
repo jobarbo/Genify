@@ -13,7 +13,7 @@ class Mover {
 				? random([0, 10, 20, 20, 30, 40, 60])
 				: random([70, 70, 80, 80, 80, 90, 100]);
 		this.initAlpha = 100;
-		this.initS = 0.8 * MULTIPLIER;
+		this.initS = 1 * MULTIPLIER;
 		this.hue = this.initHue;
 		this.sat = features.colormode === 'monochrome' ? 0 : this.initSat + random(-10, 10);
 		this.bri = this.initBri + random(-10, 10);
@@ -22,8 +22,8 @@ class Mover {
 			features.colormode === 'monochrome' || features.colormode === 'fixed'
 				? 1
 				: features.colormode === 'dynamic'
-				? 6
-				: 25;
+				? 8
+				: 16;
 		this.satStep = 1;
 		this.briStep = 1;
 		this.s = this.initS;
@@ -42,6 +42,10 @@ class Mover {
 		this.yMin = yMin;
 		this.yMax = yMax;
 		this.oct = Number(features.complexity);
+		this.centerX = width / 2;
+		this.centerY = height / 2;
+		this.borderX = features.composition === 'micro' ? width / 2.35 : width / 2;
+		this.borderY = features.composition === 'micro' ? height / 2.25 : height / 2;
 		this.clampvaluearray = features.clampvalue.split(',').map(Number);
 		this.uvalue = 10;
 		this.isRestrained = features.rangetype === 'limited' ? true : false;
@@ -79,6 +83,21 @@ class Mover {
 		this.sat = this.sat > 100 ? 100 : this.sat < 0 ? 0 : this.sat;
 		this.bri += random(-this.briStep, this.briStep);
 		this.bri = this.bri > 100 ? 100 : this.bri < 0 ? 0 : this.bri;
+
+		if (features.rangetype === 'free' && features.jdlmode === 'yes') {
+			this.x =
+				this.x <= this.centerX - this.borderX
+					? this.centerX + this.borderX + random(-4 * MULTIPLIER, 0)
+					: this.x >= this.centerX + this.borderX
+					? this.centerX - this.borderX + random(0, 4 * MULTIPLIER)
+					: this.x;
+			this.y =
+				this.y <= this.centerY - this.borderY
+					? this.centerY + this.borderY + random(-4 * MULTIPLIER, 0)
+					: this.y >= this.centerY + this.borderY
+					? this.centerY - this.borderY + random(0, 4 * MULTIPLIER)
+					: this.y;
+		}
 
 		if (this.isRestrained) {
 			if (this.x < (this.xMin - 0.015) * width) {
@@ -136,8 +155,8 @@ function superCurve(x, y, scl1, scl2, ang1, ang2, octave, clampvalueArr, uvalue)
 	let un = oct(nx, ny, scale1, 3, octave);
 	let vn = oct(nx, ny, scale2, 2, octave);
 
-	let u = map(un, -0.015, 0.015, -5, 5, true);
-	let v = map(vn, -0.0015, 0.0015, -15, 15, true);
+	let u = map(un, -0.0015, 0.0015, -5, 5, true);
+	let v = map(vn, -0.0015, 0.0015, -5, 5, true);
 
 	/* 	let u = mapValue(un, -clampvalueArr[0], clampvalueArr[1], -uvalue, uvalue, true);
 	let v = mapValue(vn, -clampvalueArr[2], clampvalueArr[3], -uvalue, uvalue, true);
