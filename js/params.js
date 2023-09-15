@@ -5,12 +5,12 @@
 // CATEGORISE VARIABILITY INSIDE ARRAYS //
 
 const complexityArr = [
-	['1', 20],
-	['2', 70],
-	['3', 5],
-	['4', 2],
-	['5', 2],
-	['6', 1],
+	['1', 16],
+	['2', 16],
+	['3', 16],
+	['4', 16],
+	['5', 16],
+	['6', 16],
 ];
 
 const themeArr = [
@@ -26,7 +26,7 @@ const compositionArr = [
 
 const colorModeArr = [
 	['monochrome', 25],
-	['fixed', 25],
+	['fixed', 0],
 	['dynamic', 25],
 	['iridescent', 25],
 ];
@@ -50,14 +50,27 @@ const clampvalueArr = [
 	['0.0000015,0.0000015,0.0000015,0.0000015', 50],
 ];
 
-const borderTypeArr = [
-	['none', 33],
-	['limited', 33],
-	['JDL mode', 33],
+const rangeTypeArr = [
+	['free', 10],
+	['limited', 90],
+];
+
+const jdlModeArr = [
+	['yes', 5],
+	['no', 95],
 ];
 
 // all input parameters are optional, they will be chosen at random if not passed into the function
-function generate_composition_params(complexity, theme, composition, colormode, strokestyle, clampvalue, bordertype) {
+function generate_composition_params(
+	complexity,
+	theme,
+	composition,
+	colormode,
+	strokestyle,
+	clampvalue,
+	rangetype,
+	jdlmode
+) {
 	// SET DEFAULTS IF NOT PASSED IN
 	if (complexity === undefined) {
 		complexity = weighted_choice(complexityArr);
@@ -65,10 +78,6 @@ function generate_composition_params(complexity, theme, composition, colormode, 
 
 	if (theme === undefined) {
 		theme = weighted_choice(themeArr);
-	}
-
-	if (composition === undefined) {
-		composition = weighted_choice(compositionArr);
 	}
 
 	if (colormode === undefined) {
@@ -83,8 +92,19 @@ function generate_composition_params(complexity, theme, composition, colormode, 
 		clampvalue = weighted_choice(clampvalueArr);
 	}
 
-	if (bordertype === undefined) {
-		bordertype = weighted_choice(borderTypeArr);
+	if (rangetype === undefined) {
+		rangetype = weighted_choice(rangeTypeArr);
+	}
+
+	if (jdlmode === undefined) {
+		jdlmode = weighted_choice(jdlModeArr);
+	}
+
+	if (composition === undefined) {
+		composition = weighted_choice(compositionArr);
+		if (rangetype === 'free') {
+			composition = 'micro';
+		}
 	}
 
 	//* EXCEPTIONS AND OVER-RIDES *//
@@ -98,7 +118,8 @@ function generate_composition_params(complexity, theme, composition, colormode, 
 		colormode: colormode,
 		strokestyle: strokestyle,
 		clampvalue: clampvalue,
-		bordertype: bordertype,
+		rangetype: rangetype,
+		jdlmode: jdlmode,
 	};
 
 	//* RETURN PARAMETERS *//

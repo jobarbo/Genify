@@ -2,7 +2,7 @@ let composition_params;
 
 composition_params = generate_composition_params();
 
-var {complexity, theme, composition, colormode, strokestyle, clampvalue, bordertype} = composition_params;
+var {complexity, theme, composition, colormode, strokestyle, clampvalue, rangetype, jdlmode} = composition_params;
 console.log(composition);
 var Features = {
 	complexity: complexity,
@@ -11,7 +11,8 @@ var Features = {
 	colormode: colormode,
 	strokestyle: strokestyle,
 	clampvalue: clampvalue,
-	bordertype: bordertype,
+	rangetype: rangetype,
+	jdlmode: jdlmode,
 };
 
 Genify.setGenFeatures(Features);
@@ -48,7 +49,7 @@ function setup() {
 		pixelDensity(3.0);
 	}
 	C_WIDTH = min(windowWidth, windowHeight);
-	MULTIPLIER = C_WIDTH / 1600;
+	MULTIPLIER = C_WIDTH / 2000;
 	c = createCanvas(C_WIDTH, C_WIDTH * 1.375);
 
 	/*
@@ -82,7 +83,7 @@ function draw() {
 
 function INIT() {
 	let hue = random(360);
-	let bgCol = color(random(0, 360), random([0, 2, 5]), 95, 100);
+	bgCol = color(random(0, 360), random([0, 2, 5]), features.theme == 'bright' ? 95 : 10, 100);
 
 	background(bgCol);
 
@@ -97,43 +98,51 @@ function INIT() {
 	let yRandDivider = xRandDivider;
 
 	xMin =
-		features.composition === 'semiconstrained'
+		features.composition === 'micro'
+			? random(0.35, 0.49)
+			: features.composition === 'semiconstrained'
+			? 0.15
+			: features.composition === 'constrained'
+			? 0.2
+			: features.composition === 'compressed'
+			? 0.25
+			: -0.05;
+	xMax =
+		features.composition === 'micro'
+			? random(0.51, 0.75)
+			: features.composition === 'semiconstrained'
+			? 0.85
+			: features.composition === 'constrained'
+			? 0.8
+			: features.composition === 'compressed'
+			? 0.75
+			: 1.05;
+	yMin =
+		features.composition === 'micro'
+			? random(0.1, 0.49)
+			: features.composition === 'semiconstrained'
 			? 0.1
 			: features.composition === 'constrained'
 			? 0.15
 			: features.composition === 'compressed'
 			? 0.2
 			: -0.05;
-	xMax =
-		features.composition === 'semiconstrained'
+	yMax =
+		features.composition === 'micro'
+			? random(0.51, 0.9)
+			: features.composition === 'semiconstrained'
 			? 0.9
 			: features.composition === 'constrained'
 			? 0.85
 			: features.composition === 'compressed'
 			? 0.8
 			: 1.05;
-	yMin =
-		features.composition === 'semiconstrained'
-			? 0.05
-			: features.composition === 'constrained'
-			? 0.1
-			: features.composition === 'compressed'
-			? 0.15
-			: -0.05;
-	yMax =
-		features.composition === 'semiconstrained'
-			? 0.95
-			: features.composition === 'constrained'
-			? 0.9
-			: features.composition === 'compressed'
-			? 0.85
-			: 1.05;
 
 	for (let i = 0; i < 200000; i++) {
 		let x = random(xMin, xMax) * width;
 		let y = random(yMin, yMax) * height;
 
-		let initHue = hue + random(-1, 1);
+		let initHue = hue + random(-10, 10);
 		initHue = initHue > 360 ? initHue - 360 : initHue < 0 ? initHue + 360 : initHue;
 		movers.push(
 			new Mover(
@@ -157,13 +166,18 @@ function INIT() {
 
 function drawTexture(hue) {
 	// draw 200000 small rects to create a texture
-	for (let i = 0; i < 200000; i++) {
+	for (let i = 0; i < 100000; i++) {
 		let x = random(width);
 		let y = random(height);
-		let sw = 0.45;
-		let h = hue + random(-1, 1);
-		let s = random([0, 20, 40, 60, 80, 100]);
-		let b = random([0, 10, 10, 20, 20, 40, 60, 70, 90, 90, 100]);
+		let sw = 0.6 * MULTIPLIER;
+		let h = hue + random(-10, 10);
+		let s = features.colormode === 'monochrome' ? 0 : random([0, 10, 40, 40, 50, 50, 60, 80, 80, 90, 100]);
+		let b =
+			features.theme === 'bright' && features.colormode !== 'monochrome'
+				? random([0, 10, 20, 20, 40, 40, 60, 70, 80, 90, 100])
+				: features.theme === 'bright' && features.colormode === 'monochrome'
+				? random([0, 0, 10, 20, 20, 30, 40])
+				: random([40, 60, 70, 70, 80, 80, 80, 90, 100]);
 		fill(h, s, b, 100);
 		noStroke();
 		rect(x, y, sw);
