@@ -158,8 +158,8 @@ function superCurve(x, y, scl1, scl2, ang1, ang2, octave, clampvalueArr, uvalue)
 	/* 	let u = map(un, -0.0015, 0.0015, -5, 5, true);
 	let v = map(vn, -0.0015, 0.0015, -5, 5, true); */
 
-	let u = mapValue(un, -clampvalueArr[0], clampvalueArr[1], -uvalue[0], uvalue[1], true);
-	let v = mapValue(vn, -clampvalueArr[1], clampvalueArr[0], -uvalue[1], uvalue[0], true);
+	let u = mapValue(un, -clampvalueArr[0], clampvalueArr[0], -uvalue[0], uvalue[0], true);
+	let v = mapValue(vn, -clampvalueArr[1], clampvalueArr[1], -uvalue[1], uvalue[1], true);
 
 	let p = createVector(u, v);
 	return p;
