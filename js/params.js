@@ -33,7 +33,7 @@ const colorModeArr = [
 ];
 
 const strokestyleArr = [
-	['thin', 1000],
+	['thin', 33],
 	['regular', 33],
 	['bold', 33],
 ];
