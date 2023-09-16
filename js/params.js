@@ -19,17 +19,17 @@ const themeArr = [
 ];
 
 const compositionArr = [
-	['semiconstrained', 15],
-	['constrained', 15],
-	['compressed', 15],
-	['micro', 55],
+	['semiconstrained', 5],
+	['constrained', 10],
+	['compressed', 20],
+	['micro', 65],
 ];
 
 const colorModeArr = [
-	['monochrome', 25],
-	['fixed', 25],
-	['dynamic', 25],
-	['iridescent', 25],
+	['monochrome', 20],
+	['fixed', 10],
+	['dynamic', 40],
+	['iridescent', 30],
 ];
 
 const strokestyleArr = [
@@ -46,16 +46,16 @@ const clampvalueArr = [
 ];
 
 const speedvalueArr = [
+	['5,7', 10],
+	['7,5', 10],
 	['5,15', 10],
 	['15,5', 10],
-	['10,10', 10],
 	['5,10', 10],
 	['10,5', 10],
-	['3,3', 10],
-	['7,7', 10],
 	['5,5', 10],
-	['5,3', 10],
-	['3,5', 10],
+	['7,7', 10],
+	['10,10', 10],
+	['15,15', 10],
 ];
 
 const rangeTypeArr = [
