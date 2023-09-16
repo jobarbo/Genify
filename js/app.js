@@ -102,8 +102,8 @@ function INIT() {
 		random([80, 100, 150, 200]),
 		random([200, 300, 400]),
 		random([400, 500, 600]),
-		random([1500, 2000, 2500]),
-		random([2500, 3000, 3500]),
+		random([400, 500, 600, 1500, 2000, 2500]),
+		random([1500, 2000, 2500, 3000, 3500]),
 	];
 	scl1 = random(scaleValues);
 	scl2 = scl1;
