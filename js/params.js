@@ -33,9 +33,9 @@ const colorModeArr = [
 ];
 
 const strokestyleArr = [
-	['thin', 10000],
-	['regular', 33],
-	['bold', 33],
+	['thin', 70],
+	['regular', 20],
+	['bold', 10],
 ];
 
 const clampvalueArr = [
@@ -54,10 +54,10 @@ const speedvalueArr = [
 	['15,5', 10],
 	['5,10', 10],
 	['10,5', 10],
-	['5,5', 10],
+	['5,5', 20],
 	['7,7', 10],
-	['10,10', 10],
-	['15,15', 10],
+	['3,3', 5],
+	['2,2', 5],
 ];
 
 const rangeTypeArr = [
