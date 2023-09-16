@@ -10,7 +10,7 @@ class Mover {
 			features.theme === 'bright' && features.colormode !== 'monochrome'
 				? random([10, 20, 20, 40, 40, 60, 70, 80])
 				: features.theme === 'bright' && features.colormode === 'monochrome'
-				? random([0, 10, 20, 20, 30, 40, 60])
+				? random([0, 10, 20, 20, 30, 40, 60, 70])
 				: random([40, 60, 70, 70, 80, 80, 80, 90]);
 		this.initAlpha = 100;
 		this.initS = 1 * MULTIPLIER;

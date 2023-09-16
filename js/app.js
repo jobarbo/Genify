@@ -157,7 +157,7 @@ function INIT() {
 			? 0.8
 			: 1.05;
 
-	for (let i = 0; i < 200000; i++) {
+	for (let i = 0; i < 100000; i++) {
 		let x = random(xMin, xMax) * width;
 		let y = random(yMin, yMax) * height;
 
