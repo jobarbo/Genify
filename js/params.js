@@ -5,11 +5,11 @@
 // CATEGORISE VARIABILITY INSIDE ARRAYS //
 
 const complexityArr = [
-	['1', 40],
+	['1', 25],
 	['2', 25],
-	['3', 15],
-	['4', 10],
-	['5', 5],
+	['3', 20],
+	['4', 15],
+	['5', 10],
 	['6', 5],
 ];
 
@@ -19,10 +19,10 @@ const themeArr = [
 ];
 
 const compositionArr = [
-	['semiconstrained', 35],
-	['constrained', 35],
+	['semiconstrained', 15],
+	['constrained', 15],
 	['compressed', 15],
-	['micro', 1000],
+	['micro', 55],
 ];
 
 const colorModeArr = [
@@ -46,13 +46,16 @@ const clampvalueArr = [
 ];
 
 const speedvalueArr = [
-	['5,15', 15],
-	['5,5', 15],
-	['15,5', 15],
+	['5,15', 10],
+	['15,5', 10],
+	['10,10', 10],
 	['5,10', 10],
 	['10,5', 10],
-	['10,10', 10],
-	['15,15', 10],
+	['3,3', 10],
+	['7,7', 10],
+	['5,5', 10],
+	['5,3', 10],
+	['3,5', 10],
 ];
 
 const rangeTypeArr = [

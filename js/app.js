@@ -96,12 +96,21 @@ function INIT() {
 
 	drawTexture(hue);
 	movers = [];
-	scl1 = random([0.005, 0.003, 0.001]);
+	let scaleValues = [0.008, 0.005, 0.003, 0.002, 0.001, 0.0008];
+	let angValues = [
+		random([1, 5, 50, 80]),
+		random([80, 100, 150, 200]),
+		random([200, 300, 400]),
+		random([400, 500, 600]),
+		random([1500, 2000, 2500]),
+		random([2500, 3000, 3500]),
+	];
+	scl1 = random(scaleValues);
 	scl2 = scl1;
 
-	console.log(scl1, scl2);
-
-	ang1 = int(random([1, 100, 500]));
+	// map the scale values array to the ang values array
+	let selector = scaleValues.indexOf(scl1);
+	ang1 = angValues[selector];
 	ang2 = ang1;
 
 	let xRandDivider = 0.1;
@@ -148,7 +157,7 @@ function INIT() {
 			? 0.8
 			: 1.05;
 
-	for (let i = 0; i < 100000; i++) {
+	for (let i = 0; i < 200000; i++) {
 		let x = random(xMin, xMax) * width;
 		let y = random(yMin, yMax) * height;
 
