@@ -5,7 +5,7 @@ class Mover {
 		this.prevx = x;
 		this.prevy = y;
 		this.initHue = hue;
-		this.initSat = random([0, 20, 40, 60, 80, 100]);
+		this.initSat = random([0, 20, 20, 40, 60, 60, 80, 90]);
 		this.initBri =
 			features.theme === 'bright' && features.colormode !== 'monochrome'
 				? random([20, 20, 40, 40, 60, 70, 80])
@@ -35,8 +35,8 @@ class Mover {
 		this.yRandDivider = yRandDivider;
 		this.xRandSkipper = 0;
 		this.yRandSkipper = 0;
-		this.xRandSkipperVal = features.strokestyle === 'thin' ? 0.1 : features.strokestyle === 'bold' ? 1 : 0.5;
-		this.yRandSkipperVal = features.strokestyle === 'thin' ? 0.1 : features.strokestyle === 'bold' ? 1 : 0.5;
+		this.xRandSkipperVal = features.strokestyle === 'thin' ? 0 : features.strokestyle === 'bold' ? 1 : 0.5;
+		this.yRandSkipperVal = features.strokestyle === 'thin' ? 0 : features.strokestyle === 'bold' ? 1 : 0.5;
 		this.xMin = xMin;
 		this.xMax = xMax;
 		this.yMin = yMin;
@@ -51,13 +51,19 @@ class Mover {
 		this.isRestrained = features.rangetype === 'limited' ? true : false;
 	}
 
-	show() {
+	show(isFirst) {
+		let alpha = this.a;
+		if (isFirst) {
+			alpha = 0;
+		} else {
+			alpha = this.a;
+		}
 		noStroke();
-		fill(this.hue, this.sat, this.bri, this.a);
+		fill(this.hue, this.sat, this.bri, alpha);
 		circle(this.x, this.y, this.initS);
 	}
 
-	move() {
+	move(isFirst) {
 		let p = superCurve(
 			this.x,
 			this.y,
@@ -87,15 +93,15 @@ class Mover {
 		if (features.rangetype === 'free' && features.jdlmode === 'yes') {
 			this.x =
 				this.x <= this.centerX - this.borderX
-					? this.centerX + this.borderX + random(-4 * MULTIPLIER, 0)
+					? this.centerX + this.borderX + random(-1 * MULTIPLIER, 0)
 					: this.x >= this.centerX + this.borderX
-					? this.centerX - this.borderX + random(0, 4 * MULTIPLIER)
+					? this.centerX - this.borderX + random(0, 1 * MULTIPLIER)
 					: this.x;
 			this.y =
 				this.y <= this.centerY - this.borderY
-					? this.centerY + this.borderY + random(-4 * MULTIPLIER, 0)
+					? this.centerY + this.borderY + random(-1 * MULTIPLIER, 0)
 					: this.y >= this.centerY + this.borderY
-					? this.centerY - this.borderY + random(0, 4 * MULTIPLIER)
+					? this.centerY - this.borderY + random(0, 1 * MULTIPLIER)
 					: this.y;
 		}
 
@@ -155,8 +161,8 @@ function superCurve(x, y, scl1, scl2, ang1, ang2, octave, clampvalueArr, uvalue)
 	let un = oct(nx, ny, scale1, 3, octave);
 	let vn = oct(nx, ny, scale2, 2, octave);
 
-	/* 	let u = map(un, -0.0015, 0.0015, -5, 5, true);
-	let v = map(vn, -0.0015, 0.0015, -5, 5, true); */
+	/* 	let u = map(un, -0.015, 0.015, -5, 5, true);
+	let v = map(vn, -0.0015, 0.0015, -15, 15, true); */
 
 	let u = mapValue(un, -clampvalueArr[0], clampvalueArr[0], -uvalue[0], uvalue[0], true);
 	let v = mapValue(vn, -clampvalueArr[1], clampvalueArr[1], -uvalue[1], uvalue[1], true);

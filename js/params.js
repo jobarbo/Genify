@@ -22,7 +22,7 @@ const compositionArr = [
 	['semiconstrained', 35],
 	['constrained', 35],
 	['compressed', 15],
-	['micro', 15],
+	['micro', 1000],
 ];
 
 const colorModeArr = [
@@ -33,7 +33,7 @@ const colorModeArr = [
 ];
 
 const strokestyleArr = [
-	['thin', 33],
+	['thin', 1000],
 	['regular', 33],
 	['bold', 33],
 ];

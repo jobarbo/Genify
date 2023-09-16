@@ -36,7 +36,7 @@ let startTime;
 let maxFrames = 60;
 let C_WIDTH;
 let MULTIPLIER;
-
+let cycle = 0;
 function setup() {
 	console.time('setup');
 	var ua = window.navigator.userAgent;
@@ -69,9 +69,11 @@ function setup() {
 
 function draw() {
 	// put drawing code here
+
 	for (let i = 0; i < movers.length; i++) {
-		movers[i].show();
-		movers[i].move();
+		let firstCycle = cycle === 0 ? true : false;
+		movers[i].show(firstCycle);
+		movers[i].move(firstCycle);
 	}
 	let elapsedTime = frameCount - startTime;
 	if (elapsedTime > maxFrames) {
@@ -79,6 +81,7 @@ function draw() {
 		document.complete = true;
 		noLoop();
 	}
+	cycle++;
 }
 
 ///////////////////////////////////////////////////////
@@ -93,14 +96,16 @@ function INIT() {
 
 	drawTexture(hue);
 	movers = [];
-	scl1 = random([0.00095, 0.001, 0.0011, 0.0012, 0.0015, 0.002]);
-	scl2 = random([0.00095, 0.001, 0.0011, 0.0012, 0.0015, 0.002]);
+	scl1 = random([0.005, 0.003, 0.001]);
+	scl2 = scl1;
 
-	ang1 = int(random([1, 5, 10, 20, 40, 80, 160, 320, 640, 1280]));
-	ang2 = int(random([1, 5, 10, 20, 40, 80, 160, 320, 640, 1280]));
+	console.log(scl1, scl2);
 
-	let xRandDivider = random([0.05, 0.08, 0.09, 0.1, 0.11, 0.12, 0.15]);
-	let yRandDivider = random([0.05, 0.08, 0.09, 0.1, 0.11, 0.12, 0.15]);
+	ang1 = int(random([1, 100, 500]));
+	ang2 = ang1;
+
+	let xRandDivider = 0.1;
+	let yRandDivider = xRandDivider;
 
 	xMin =
 		features.composition === 'micro'

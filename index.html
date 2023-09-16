@@ -61,7 +61,9 @@
 					if (!hash || hash.length != 66) {
 						hash = '0x' + [...Array(64)].map(() => Math.floor(Math.random() * 16).toString(16)).join('');
 					}
+					hash = 'test hashssssss';
 					console.log(hash);
+
 					window.$genhash = hash;
 					window.addEventListener('message', (event) => {
 						if (event.data === 'gen_getFeatures') {
