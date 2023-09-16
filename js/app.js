@@ -113,7 +113,7 @@ function INIT() {
 	ang1 = angValues[selector];
 	ang2 = ang1;
 
-	let xRandDivider = 0.1;
+	let xRandDivider = random([0.08, 0.09, 0.1, 0.11, 0.12]);
 	let yRandDivider = xRandDivider;
 
 	xMin =
