@@ -33,7 +33,7 @@ let xMax;
 let yMin;
 let yMax;
 let startTime;
-let maxFrames = 60;
+let maxFrames = 30;
 let C_WIDTH;
 let MULTIPLIER;
 let cycle = 0;
@@ -48,7 +48,7 @@ function setup() {
 	if (iOSSafari) {
 		pixelDensity(1.0);
 	} else {
-		pixelDensity(3.0);
+		pixelDensity(1.0);
 	}
 	C_WIDTH = min(windowWidth, windowHeight);
 	MULTIPLIER = C_WIDTH / 2000;
