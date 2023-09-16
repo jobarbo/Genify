@@ -5,9 +5,9 @@
 // CATEGORISE VARIABILITY INSIDE ARRAYS //
 
 const complexityArr = [
-	['1', 25],
-	['2', 25],
-	['3', 20],
+	['1', 20],
+	['2', 35],
+	['3', 15],
 	['4', 15],
 	['5', 10],
 	['6', 5],
@@ -26,14 +26,14 @@ const compositionArr = [
 ];
 
 const colorModeArr = [
-	['monochrome', 30],
+	['monochrome', 15],
 	['fixed', 10],
-	['dynamic', 30],
+	['dynamic', 45],
 	['iridescent', 30],
 ];
 
 const strokestyleArr = [
-	['thin', 33],
+	['thin', 10000],
 	['regular', 33],
 	['bold', 33],
 ];

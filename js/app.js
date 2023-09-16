@@ -113,7 +113,7 @@ function INIT() {
 	ang1 = angValues[selector];
 	ang2 = ang1;
 
-	let xRandDivider = 0.1;
+	let xRandDivider = random([0.08, 0.09, 0.1, 0.11, 0.12]);
 	let yRandDivider = xRandDivider;
 
 	xMin =
@@ -161,7 +161,7 @@ function INIT() {
 		let x = random(xMin, xMax) * width;
 		let y = random(yMin, yMax) * height;
 
-		let initHue = hue + random(-10, 10);
+		let initHue = hue + random(-20, 20);
 		initHue = initHue > 360 ? initHue - 360 : initHue < 0 ? initHue + 360 : initHue;
 		movers.push(
 			new Mover(
@@ -185,7 +185,7 @@ function INIT() {
 
 function drawTexture(hue) {
 	// draw 200000 small rects to create a texture
-	for (let i = 0; i < 200000; i++) {
+	for (let i = 0; i < 100000; i++) {
 		let x = random(width);
 		let y = random(height);
 		let sw = 0.65 * MULTIPLIER;
