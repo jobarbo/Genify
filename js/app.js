@@ -4,7 +4,6 @@ composition_params = generate_composition_params();
 
 var {complexity, theme, composition, colormode, strokestyle, clampvalue, rangetype, jdlmode, speedvalue} =
 	composition_params;
-console.log(composition);
 var Features = {
 	complexity: complexity,
 	theme: theme,
@@ -116,9 +115,6 @@ function INIT() {
 	let xRandDivider = random([0.08, 0.09, 0.1, 0.11, 0.12]);
 	let yRandDivider = xRandDivider;
 
-	console.log(xRandDivider);
-	console.log(ang1);
-	console.log(scl1);
 	xMin =
 		features.composition === 'micro'
 			? 0.35

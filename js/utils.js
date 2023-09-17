@@ -14,7 +14,6 @@ F = (N, f) => [...Array(N)].map((_, i) => f(i));
 //seed = Math.random() * 2 ** 32;
 
 seed = Genify.randInt(1, 123456789);
-console.log(seed);
 
 S = Uint32Array.of(9, 7, 5, 3); // PRNG state
 R = (a = 1) =>
