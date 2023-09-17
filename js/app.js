@@ -112,8 +112,12 @@ function INIT() {
 	ang1 = angValues[selector];
 	ang2 = ang1;
 
-	let xRandDivider = random([0.08, 0.09, 0.1, 0.11, 0.12]);
+	let xRandDivider = random([0.09, 0.095, 0.1, 0.1, 0.1, 0.1, 0.11, 0.12]);
 	let yRandDivider = xRandDivider;
+
+	console.log('xRandDivider', xRandDivider);
+	console.log('scale1', scl1);
+	console.log('ang1', ang1);
 
 	xMin =
 		features.composition === 'micro'
@@ -156,7 +160,7 @@ function INIT() {
 			? 0.8
 			: 1.05;
 
-	for (let i = 0; i < 100000; i++) {
+	for (let i = 0; i < 120000; i++) {
 		let x = random(xMin, xMax) * width;
 		let y = random(yMin, yMax) * height;
 
@@ -188,7 +192,7 @@ function drawTexture(hue) {
 		let x = random(width);
 		let y = random(height);
 		let sw = 0.65 * MULTIPLIER;
-		let h = hue + random(-10, 10);
+		let h = hue;
 		let s = features.colormode === 'monochrome' ? 0 : random([0, 10, 40, 40, 50, 50, 60, 80, 80, 90, 100]);
 		let b =
 			features.theme === 'bright' && features.colormode !== 'monochrome'
