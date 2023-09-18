@@ -51,7 +51,7 @@ function setup() {
 	}
 	C_WIDTH = min(windowWidth, windowHeight);
 	MULTIPLIER = C_WIDTH / 2000;
-	c = createCanvas(C_WIDTH, C_WIDTH * 1.375);
+	c = createCanvas(C_WIDTH, C_WIDTH * 1.4158);
 
 	/*
 		window.addEventListener('resize', onResize);
@@ -160,7 +160,7 @@ function INIT() {
 			? 0.8
 			: 1.05;
 
-	for (let i = 0; i < 120000; i++) {
+	for (let i = 0; i < 130000; i++) {
 		let x = random(xMin, xMax) * width;
 		let y = random(yMin, yMax) * height;
 
