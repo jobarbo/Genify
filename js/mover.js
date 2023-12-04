@@ -1,17 +1,31 @@
 class Mover {
-	constructor(x, y, hue, scl1, scl2, ang1, ang2, xMin, xMax, yMin, yMax, xRandDivider, yRandDivider) {
+	constructor(
+		x,
+		y,
+		hue,
+		scl1,
+		scl2,
+		ang1,
+		ang2,
+		xMin,
+		xMax,
+		yMin,
+		yMax,
+		xRandDivider,
+		yRandDivider
+	) {
 		this.x = x;
 		this.y = y;
 		this.initHue = hue;
 		this.initSat = random([0, 10, 30, 40, 40, 60, 80, 80, 90, 100]);
-		this.initBri = random([0, 10, 20, 20, 40, 40, 60, 70, 80, 90, 100]);
+		this.initBri = random([30, 40, 40, 60, 70, 80, 90, 100]);
 		this.initAlpha = 100;
 		this.initS = 0.35 * MULTIPLIER;
 		this.hue = this.initHue;
 		this.sat = this.initSat;
 		this.bri = this.initBri;
 		this.a = this.initAlpha;
-		this.hueStep = 10;
+		this.hueStep = 30;
 		this.s = this.initS;
 		this.scl1 = scl1;
 		this.scl2 = scl2;
@@ -27,7 +41,7 @@ class Mover {
 		this.xMax = xMax;
 		this.yMin = yMin;
 		this.yMax = yMax;
-		this.oct = 1;
+		this.oct = 2;
 		this.centerX = width / 2;
 		this.centerY = height / 2;
 		this.borderX = width / 2;
@@ -43,17 +57,43 @@ class Mover {
 	}
 
 	move() {
-		let p = superCurve(this.x, this.y, this.scl1, this.scl2, this.ang1, this.ang2, this.oct);
+		let p = superCurve(
+			this.x,
+			this.y,
+			this.scl1,
+			this.scl2,
+			this.ang1,
+			this.ang2,
+			this.oct
+		);
 
-		this.xRandSkipper = random(-this.xRandSkipperVal * MULTIPLIER, this.xRandSkipperVal * MULTIPLIER);
-		this.yRandSkipper = random(-this.xRandSkipperVal * MULTIPLIER, this.xRandSkipperVal * MULTIPLIER);
+		this.xRandSkipper = random(
+			-this.xRandSkipperVal * MULTIPLIER,
+			this.xRandSkipperVal * MULTIPLIER
+		);
+		this.yRandSkipper = random(
+			-this.xRandSkipperVal * MULTIPLIER,
+			this.xRandSkipperVal * MULTIPLIER
+		);
 
 		this.x += (p.x * MULTIPLIER) / this.xRandDivider + this.xRandSkipper;
 		this.y += (p.y * MULTIPLIER) / this.yRandDivider + this.yRandSkipper;
 
 		let pxy = p.x - p.y;
-		this.hue += mapValue(pxy, -this.uvalue * 2, this.uvalue * 2, -this.hueStep, this.hueStep, true);
-		this.hue = this.hue > 360 ? this.hue - 360 : this.hue < 0 ? this.hue + 360 : this.hue;
+		this.hue += mapValue(
+			pxy,
+			-this.uvalue * 2,
+			this.uvalue * 2,
+			-this.hueStep,
+			this.hueStep,
+			true
+		);
+		this.hue =
+			this.hue > 360
+				? this.hue - 360
+				: this.hue < 0
+				? this.hue + 360
+				: this.hue;
 
 		/* 		this.x =
 			this.x <= this.centerX - this.borderX
@@ -118,7 +158,7 @@ function superCurve(x, y, scl1, scl2, ang1, ang2, octave) {
 	let vn = oct(nx, ny, scale2, 2, octave);
 
 	let u = mapValue(un, -0.5, 0.5, -0, 0, true);
-	let v = mapValue(vn, -0.0000015, 0.0000015, -25, 0, true);
+	let v = mapValue(vn, -0, 0.00000000000000015, -25, 0, true);
 
 	let p = createVector(u, v);
 	return p;

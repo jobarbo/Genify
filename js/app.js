@@ -1,5 +1,5 @@
 var Features = {
-	shape: 'circle',
+	shape: "circle",
 };
 
 //Genify.setGenFeatures(Features);
@@ -23,7 +23,7 @@ let C_WIDTH;
 let MULTIPLIER;
 
 function setup() {
-	console.time('setup');
+	console.time("setup");
 	var ua = window.navigator.userAgent;
 	var iOS = !!ua.match(/iPad/i) || !!ua.match(/iPhone/i);
 	var webkit = !!ua.match(/WebKit/i);
@@ -60,7 +60,7 @@ function draw() {
 	}
 	let elapsedTime = frameCount - startTime;
 	if (elapsedTime > maxFrames) {
-		console.log('elapsedTime', elapsedTime);
+		console.log("elapsedTime", elapsedTime);
 		noLoop();
 	}
 }
@@ -70,7 +70,7 @@ function draw() {
 //////////////////////////////////////////////////////
 
 function INIT() {
-	console.log('INIT');
+	console.log("INIT");
 	let hue = random(360);
 	bgCol = color(random(0, 360), random([0, 2, 5]), 95, 100);
 	background(bgCol);
@@ -83,7 +83,7 @@ function INIT() {
 	ang1 = int(random([1, 5, 10, 20, 40, 80, 160, 320, 640, 1280]));
 	ang2 = int(random([1, 5, 10, 20, 40, 80, 160, 320, 640, 1280]));
 
-	let xRandDivider = random([0.1]);
+	let xRandDivider = random([0.114]);
 	let yRandDivider = xRandDivider;
 
 	xMin = 0.1;
@@ -100,7 +100,8 @@ function INIT() {
 		let y = random(yMin, yMax) * height;
 
 		let initHue = hue + random(-1, 1);
-		initHue = initHue > 360 ? initHue - 360 : initHue < 0 ? initHue + 360 : initHue;
+		initHue =
+			initHue > 360 ? initHue - 360 : initHue < 0 ? initHue + 360 : initHue;
 		movers.push(
 			new Mover(
 				x,
@@ -123,7 +124,7 @@ function INIT() {
 
 function drawTexture(hue) {
 	// draw 200000 small rects to create a texture
-	console.log('drawTexture');
+	console.log("drawTexture");
 	for (let i = 0; i < 100000; i++) {
 		let x = random(width);
 		let y = random(height);
