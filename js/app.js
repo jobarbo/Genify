@@ -78,6 +78,7 @@ function draw() {
 	if (elapsedTime > maxFrames) {
 		window.rendered = c.canvas;
 		document.complete = true;
+		Genify.renderDone();
 		noLoop();
 	}
 	cycle++;
